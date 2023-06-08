@@ -4,13 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -18,15 +16,15 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Repository {
+public class Branch {
 
     @Id
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne
-    private Owner owner;
+    private String name;
+    private String lastCommitSha;
 
-    @OneToMany(mappedBy = "repository")
-    private List<Branch> branches;
+    @ManyToOne
+    private Repository repository;
 }
