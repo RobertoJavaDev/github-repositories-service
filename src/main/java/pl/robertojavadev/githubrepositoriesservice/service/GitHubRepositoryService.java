@@ -1,5 +1,6 @@
 package pl.robertojavadev.githubrepositoriesservice.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,14 +19,14 @@ public class GitHubRepositoryService {
 
     public List<RepositoryDto> getRepositories(String username) {
         String apiUrl = GITHUB_API_URL + "/users/" + username + "/repos";
-        GitHubRepository[] gitHubRepositories = restTemplate.getForObject(apiUrl, GitHubRepository[].class, username);
+        Repository[] gitHubRepositories = restTemplate.getForObject(apiUrl, Repository[].class, username);
 
         if (gitHubRepositories != null) {
-            List<Repository> repositories = new ArrayList<>();
+            List<RepositoryDto> repositories = new ArrayList<>();
 
             return repositories;
         } else {
-            throw new UserNotFoundException("GitHub user not found: " + username);
+            throw new EntityNotFoundException("GitHub user not found: " + username);
         }
     }
 }
